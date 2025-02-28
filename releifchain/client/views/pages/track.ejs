@@ -1,0 +1,22 @@
+<% layout('layouts/layout') -%>
+<h1 class="text-center mb-4">Track Donations</h1>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Campaign</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% donations.forEach(donation => { %>
+        <tr>
+          <td>$<%= donation.amount %></td>
+          <td><%= donation.campaign.title %></td>
+          <td><%= donation.createdAt.toDateString() %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

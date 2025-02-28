@@ -1,0 +1,23 @@
+<% layout('layouts/layout') -%>
+<div class="campaign-create">
+  <h1 class="text-center mb-4">Create a Charity Campaign</h1>
+  <form action="/campaigns" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="goal" class="form-label">Goal Amount ($)</label>
+      <input type="number" class="form-control" id="goal" name="goal" required>
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Campaign Image</label>
+      <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Campaign</button>
+  </form>
+</div>

@@ -1,0 +1,28 @@
+<% layout('layouts/layout') -%>
+<div class="campaign-edit">
+  <h1 class="text-center mb-4">Edit Charity Campaign</h1>
+  <form action="/campaigns/<%= campaign._id %>/edit" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="<%= campaign.title %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="5" required><%= campaign.description %></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="goal" class="form-label">Goal Amount ($)</label>
+      <input type="number" class="form-control" id="goal" name="goal" value="<%= campaign.goal %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Campaign Image</label>
+      <input type="file" class="form-control" id="image" name="image" accept="image/*">
+      <% if (campaign.image) { %>
+        <div class="mt-2">
+          <img src="<%= campaign.image %>" alt="Current Campaign Image" class="img-thumbnail" style="max-width: 200px;">
+        </div>
+      <% } %>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Campaign</button>
+  </form>
+</div>
