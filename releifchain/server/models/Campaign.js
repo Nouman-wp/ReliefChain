@@ -5,9 +5,8 @@ const campaignSchema = new mongoose.Schema({
   description: { type: String, required: true },
   goal: { type: Number, required: true },
   raised: { type: Number, default: 0 },
-  image: { type: String }, // Path to the uploaded image
-  createdAt: { type: Date, default: Date.now },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Track who created the campaign
-});
+  imageUrl: { type: String },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Ensure it's required
+}, { timestamps: true });
 
 module.exports = mongoose.model('Campaign', campaignSchema);

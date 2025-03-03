@@ -1,17 +1,29 @@
 <% layout('layouts/layout') -%>
-<h1 class="text-center mb-4">Campaigns</h1>
-<div class="row">
-  <% campaigns.forEach(campaign => { %>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title"><%= campaign.title %></h5>
-          <p class="card-text"><%= campaign.description %></p>
-          <p class="card-text"><strong>Goal:</strong> $<%= campaign.goal %></p>
-          <p class="card-text"><strong>Raised:</strong> $<%= campaign.raised %></p>
-          <a href="/campaigns/<%= campaign._id %>" class="btn btn-primary">View Details</a>
+<h1 class="text-center mb-4">Active Campaigns</h1>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% campaigns.forEach(campaign => { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+          <img src="<%= campaign.imageUrl %>" class="card-img-top" alt="<%= campaign.title %>" style="height: 200px; object-fit: cover; border-radius: 10px 10px 0 0;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold"><%= campaign.title %></h5>
+            <p class="card-text text-muted"><%= campaign.description.substring(0, 100) %>...</p>
+            <p class="text-primary"><strong>Goal:</strong> $<%= campaign.goal %></p>
+            <p class="text-success"><strong>Raised:</strong> $<%= campaign.raised %></p>
+
+            <!-- Progress Bar -->
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: auto;" <%= (campaign.raised / campaign.goal) * 100 %>%" aria-valuenow="<%= (campaign.raised / campaign.goal) * 100 %>" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <div class="mt-auto">
+              <a href="/campaigns/<%= campaign._id %>" class="btn btn-primary w-100 mt-3">View Details</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  <% }) %>
+    <% }) %>
+  </div>
 </div>

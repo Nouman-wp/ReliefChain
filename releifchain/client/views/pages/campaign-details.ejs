@@ -1,31 +1,56 @@
 <% layout('layouts/layout') -%>
-<div class="campaign-details">
-  <h1 class="text-center mb-4"><%= campaign.title %></h1>
-  <div class="card">
-    <div class="card-body">
-      <p class="card-text"><%= campaign.description %></p>
-      <p class="card-text"><strong>Goal:</strong> $<%= campaign.goal %></p>
-      <p class="card-text"><strong>Raised:</strong> $<%= campaign.raised %></p>
+
+<div class="container my-5">
+  <div class="card shadow-lg">
+    <!-- Campaign Image -->
+    <% if (campaign.imageUrl) { %>
+      <img src="<%= campaign.imageUrl %>" class="card-img-top" alt="<%= campaign.title %>">
+    <% } %>
+
+    <div class="card-body text-center">
+      <h1 class="fw-bold"><%= campaign.title %></h1>
+      <p class="text-muted"><%= campaign.description %></p>
+
+      <!-- Progress Bar -->
+      <div class="progress my-3" style="height: 20px;">
+        <div class="progress-bar bg-success" role="progressbar"
+          style="width: <%= Math.min((campaign.raised / campaign.goal) * 100, 100) %>%;" 
+          aria-valuenow="<%= Math.min((campaign.raised / campaign.goal) * 100, 100) %>"
+          aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      
+      <!-- Campaign Goal and Raised Amount -->
+      <p>
+        🎯 <strong>Goal:</strong> $<%= campaign.goal.toLocaleString() %> |
+        💰 <strong>Raised:</strong> $<%= campaign.raised.toLocaleString() %>
+      </p>
+
+      <!-- Donation or Edit Campaign Section -->
+      <% if (locals.user) { %>
+        <% if (String(campaign.createdBy) === String(locals.user._id)) { %>
+          <!-- If user is the creator -->
+          <a href="/campaigns/<%= campaign._id %>/edit" class="btn btn-warning">Edit Campaign</a>
+        <% } else { %>
+          <!-- If user is a donor -->
+          <div class="donation-form mt-4">
+            <h3>Make a Donation</h3>
+            <form action="/donations" method="POST">
+              <input type="hidden" name="campaignId" value="<%= campaign._id %>">
+              <div class="mb-3">
+                <label for="amount" class="form-label">Amount</label>
+                <input type="number" class="form-control" id="amount" name="amount" required min="1">
+              </div>
+              <button type="submit" class="btn btn-primary">Donate</button>
+            </form>
+          </div>
+        <% } %>
+      <% } else { %>
+        <!-- If user is not logged in -->
+        <div class="alert alert-warning mt-4">
+          🚀 You must <a href="/auth/login">log in</a> to make a donation.
+        </div>
+      <% } %>
     </div>
   </div>
-
-  <% if (locals.user && campaign.createdBy.equals(locals.user._id)) { %>
-    
-    <div class="donation-form mt-4">
-      <h3>Make a Donation</h3>
-      <a href="/campaigns/<%= campaign._id %>/edit" class="btn btn-warning">Edit Campaign</a>
-      <form action="/donations" method="POST">
-        <input type="hidden" name="campaignId" value="<%= campaign._id %>">
-        <div class="mb-3">
-          <label for="amount" class="form-label">Amount</label>
-          <input type="number" class="form-control" id="amount" name="amount" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Donate</button>
-      </form>
-    </div>
-  <% } else { %>
-    <div class="alert alert-warning mt-4">
-      You must <a href="/auth/login">log in</a> to make a donation.
-    </div>
-  <% } %>
 </div>

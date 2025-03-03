@@ -54,7 +54,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 // Serialize user
 passport.serializeUser((user, done) => {
-  console.log('Serializing user:', user); // Debugging: Check if user is serialized
+  // console.log('Serializing user:', user); 
   done(null, user.id);
 });
 
@@ -62,7 +62,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
-    console.log('Deserializing user:', user); // Debugging: Check if user is deserialized
+    // console.log('Deserializing user:', user); 
     done(null, user);
   } catch (err) {
     done(err);
@@ -80,7 +80,7 @@ app.use(flash());
 // Middleware to pass user object to all views
 app.use((req, res, next) => {
   res.locals.user = req.user || null; // Pass the user object to all views
-  console.log('User in middleware:', req.user); // Debugging: Check if req.user is set
+  // console.log('User in middleware:', req.user); // Debugging: Check if req.user is set
   next();
 });
 

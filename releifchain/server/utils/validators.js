@@ -5,6 +5,7 @@ module.exports.validateCampaign = (campaign) => {
     title: Joi.string().required(),
     description: Joi.string().required(),
     goal: Joi.number().required(),
+    createdBy: Joi.string().required(),
   });
   return schema.validate(campaign);
 };
