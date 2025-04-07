@@ -51,7 +51,7 @@ reliefchain/
 
 ## 📸 Screenshots
 
-> _(Add screenshots here once your UI is polished. Show login, home, campaign page, and dashboard.)_
+> _(I will Add screenshots here once your UI is polished.)_
 
 ---
 
@@ -68,7 +68,7 @@ reliefchain/
 ## 🧪 Local Setup
 
 ```bash
-git clone https://github.com/your-username/reliefchain.git
+git clone https://github.com/Nouman-wp/reliefchain.git
 cd reliefchain
 npm install
 # Configure your .env file (Mongo URI, Cloudinary, etc.)
